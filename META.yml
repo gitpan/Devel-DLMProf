@@ -16,5 +16,6 @@ no_index:
     - inc
     - t
 requires:
+  Linux::Smaps: 0
   Path::Class: 0
-version: 0.01
+version: 0.02
