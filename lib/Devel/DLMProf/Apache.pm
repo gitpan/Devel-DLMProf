@@ -1,8 +1,9 @@
 package Devel::DLMProf::Apache;
-our $VERSION = '0.02';
+our $VERSION = '0.04';
 use vars qw(%initial_modules $memory_before);
 use Carp;
 use Path::Class qw(file);
+use Fcntl;
 
 use constant WIN32   => $^O eq 'MSWin32';
 use constant SOLARIS => $^O eq 'solaris';
@@ -116,17 +117,18 @@ sub profile_dynamic_loaded_modules {
 sub profile_memory_diff {
     my $memory_after = get_current_process_memory_size();
     my $memory_diff  = $memory_after - $memory_before;
-    _write_log( "### memory (after-before) ###\n" . $memory_diff );
+    _write_log( "### memory (after-before) ###\n" . $memory_diff . " byte" );
 }
 
 sub _write_log {
     my $text = shift;
     warn $text;
-
-# TODO to be fixed
-#my $output = file($ENV{DLMPROF})->openw or croak "Can't read $ENV{DLMPROF}: $!";
-#$output->print($text);
-#$output->close;
+    $text = "\n" . $text;
+    my $file = "/tmp/dlmprof.$$.out";
+    sysopen( FH, $file, O_WRONLY | O_CREAT | O_APPEND )
+        or die "can't open $file: $!";
+    print FH $text;
+    close FH;
 }
 
 # arrange for the profile to be enabled in each child

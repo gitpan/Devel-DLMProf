@@ -1,7 +1,7 @@
 Revision history for Perl extension Devel::DLMProf
 
-0.03_02 Fri Nov 14 20:19:00 2008
-	* support BSD
+0.04 Fri Nov 22 00:24:00 2008
+	* support older kernel linux
 
 0.03_02 Fri Nov 14 20:19:00 2008
 	* support older kernel linux
