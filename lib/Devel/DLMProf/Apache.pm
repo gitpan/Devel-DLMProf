@@ -1,5 +1,4 @@
 package Devel::DLMProf::Apache;
-our $VERSION = '0.04';
 use vars qw(%initial_modules $memory_before);
 use Carp;
 use Path::Class qw(file);
@@ -109,7 +108,7 @@ sub _get_bsd_process_memory_size {
 
 sub profile_dynamic_loaded_modules {
     my @dynamic_loaded_modules = grep { !$initial_modules{$_} } keys %INC;
-    my $dynamic_loaded_modules = join "¥n", @dynamic_loaded_modules;
+    my $dynamic_loaded_modules = join "\n", @dynamic_loaded_modules;
     _write_log(
         "### Dynamic Loaded Modules ###\n" . $dynamic_loaded_modules );
 }

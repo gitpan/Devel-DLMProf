@@ -18,4 +18,4 @@ no_index:
 requires:
   Linux::Smaps: 0
   Path::Class: 0
-version: 0.04
+version: 0.041
