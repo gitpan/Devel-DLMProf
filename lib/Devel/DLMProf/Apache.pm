@@ -141,15 +141,7 @@ if (MP2) {
     $s->push_handlers( PerlChildExitHandler => \&child_exit );
 }
 else {
-    require Apache;
-    require Apache::Constants;
-    if ( Apache->can('push_handlers') ) {
-        Apache->push_handlers( PerlChildInitHandler => \&child_init );
-        Apache->push_handlers( PerlChildExitHandler => \&child_exit );
-    }
-    else {
-        Carp::carp("Apache.pm was not loaded");
-    }
+    Carp::carp("mod_perl1.x isn't supported");
 }
 
 1;
@@ -163,6 +155,12 @@ Devel::DLMProf::Apache - Find dynamic loaded modules in mod_perl applications wi
 =head1 SYNOPSIS
 
     # in your Apache config file with mod_perl installed
+    PerlPassEnv DLMPROF
+    PerlModule Devel::DLMProf::Apache
+
+    # the case you use startup.pl
+
+    PerlPostConfigRequire /path/to/startup.pl
     PerlPassEnv DLMPROF
     PerlModule Devel::DLMProf::Apache
 
@@ -220,3 +218,4 @@ it under the same terms as Perl itself, either Perl version 5.8.8 or,
 at your option, any later version of Perl 5 you may have available.
 
 =cut
+
